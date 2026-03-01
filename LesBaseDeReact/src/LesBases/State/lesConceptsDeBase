@@ -1,0 +1,4 @@
+le State est un objet interne au composant : il contient des données dynamiques il peut etre modifier il influence l affichage il permet de controler le comportement du composant 
+pour les hooks : permet de faire la meme chose en plus simple dans les composant  fonctionnels 
+------Hooks = state + logique + événements, sans classes et sans this.
+la syntaxe: const [state, setState] = useState(valeurInitial);
