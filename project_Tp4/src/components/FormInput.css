@@ -1,0 +1,66 @@
+.field-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.field-label .req {
+  color: var(--accent);
+  margin-left: 2px;
+}
+
+.field-wrap input,
+.field-wrap select,
+.field-wrap textarea {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--ink);
+  background: #fdfcfb;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.field-wrap input:focus,
+.field-wrap select:focus,
+.field-wrap textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(26,26,46,0.07);
+}
+
+.field-wrap.has-error input,
+.field-wrap.has-error select,
+.field-wrap.has-error textarea {
+  border-color: var(--error);
+}
+
+.field-wrap.has-success input,
+.field-wrap.has-success select,
+.field-wrap.has-success textarea {
+  border-color: var(--success);
+}
+
+.field-wrap textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.field-msg {
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.error-msg { color: var(--error); }
+.success-msg { color: var(--success); }
+.field-hint { font-size: 0.78rem; color: var(--ink-light); }

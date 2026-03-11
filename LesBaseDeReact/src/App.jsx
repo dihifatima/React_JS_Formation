@@ -3,6 +3,9 @@ import ProductList from './LesBases/LesProps/ProductList'
 import Card from './LesBases/Children/Card'
 import Wrapper from './LesBases/Children/Wrapper'
 import Compteur from './LesBases/State/Compteur'
+import Compteur2 from './LesBases/State/MisAjourDeState'
+import StateAvecTableau from './LesBases/State/StateAvecTableau'
+import StateAvecObjet from './LesBases/State/StateAvecObjet'
 function App() {
   const produits= [
     {id:1, name: "clavier", price: 100},
@@ -34,7 +37,9 @@ function App() {
       </Wrapper>
 
       <Compteur/>
-  
+     <Compteur2/>
+     <StateAvecTableau/>
+     <StateAvecObjet/>
     </div>
     
   );

@@ -1,0 +1,36 @@
+.lang-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-light);
+  transition: all 0.18s;
+  user-select: none;
+  background: #fdfcfb;
+}
+
+.lang-option input[type="checkbox"] {
+  display: none;
+}
+
+.lang-option.checked {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #f4f0eb;
+}
+
+.lang-option:hover {
+  border-color: var(--ink);
+}
