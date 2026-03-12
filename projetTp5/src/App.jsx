@@ -6,13 +6,30 @@ function App() {
 const [tasks,setTasks]= useState([
   {id:1 , nom:"Apprendre React" , completed:false}
 ]);
-  function deleteTask(id){
- console.log(id)
+function deleteTask(id){
+  const newTasks = tasks.filter(task => task.id !== id);
+  setTasks(newTasks);
 }
 
-function toggleTask(id){
- console.log(id)
+function deleteCompletedTasks() {
+  const newTasks = tasks.filter(task => !task.completed);
+  setTasks(newTasks);
 }
+function toggleTask(id){
+  const newTasks = tasks.map(task => {
+    if(task.id === id){
+      return {
+        ...task,
+        completed: !task.completed
+      };
+    }
+    return task;
+  });
+
+  setTasks(newTasks);
+}
+
+
 /*
 setTasks(function(prevTasks){
   return [...prevTasks, newTask];
@@ -23,8 +40,9 @@ function addTask(nom){
 }
   return (
     <>
+    <h2>Gestionnaire de Taches</h2>
     <TaskForm addTask= {addTask} />
-    <TaskList tasks={tasks} onDelete={deleteTask} onToggle={toggleTask}/>
+    <TaskList tasks={tasks} onDelete={deleteTask} onToggle={toggleTask} onDeleteCompleted={deleteCompletedTasks}/>
     </>
   );
 }

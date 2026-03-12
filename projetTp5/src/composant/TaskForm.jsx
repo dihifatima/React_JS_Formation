@@ -9,7 +9,11 @@ export default function TaskForm({addTask}) {
   function handleSubmit(e){
      e.preventDefault();
 
-  
+    if(task.trim() === ""){
+     alert("Veuillez saisir une tâche");
+
+    return;
+  }
      addTask(task);
     setTask("");
   }
