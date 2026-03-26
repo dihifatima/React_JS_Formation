@@ -1,11 +1,41 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TaskList from './composant/TaskList'
-import TaskForm from './composant/TaskForm';
+import TaskForm from './composant/TaskForm'
+import { TaskContext } from './Hooks/TaskContext'
+
 function App() {
-const [tasks,setTasks]= useState([
-  {id:1 , nom:"Apprendre React" , completed:false}
-]);
+
+const [tasks, setTasks] = useState(() => {
+  const savedTasks = localStorage.getItem("tasks");
+  return savedTasks ? JSON.parse(savedTasks) : [];
+});
+useEffect(() => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}, [tasks]);
+
+useEffect(() => {
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=10");
+      const data = await response.json();
+
+      const tasksFromApi = data.map(task => ({
+        id: task.id,
+        nom: task.title,
+        completed: task.completed
+      }));
+
+      setTasks(tasksFromApi);
+
+    } catch (error) {
+      console.error("Erreur :", error);
+    }
+  };
+
+  fetchTasks();
+}, []);
+
 function deleteTask(id){
   const newTasks = tasks.filter(task => task.id !== id);
   setTasks(newTasks);
@@ -15,6 +45,7 @@ function deleteCompletedTasks() {
   const newTasks = tasks.filter(task => !task.completed);
   setTasks(newTasks);
 }
+
 function toggleTask(id){
   const newTasks = tasks.map(task => {
     if(task.id === id){
@@ -29,21 +60,26 @@ function toggleTask(id){
   setTasks(newTasks);
 }
 
-
-/*
-setTasks(function(prevTasks){
-  return [...prevTasks, newTask];
-}); prevTasks c est le parametre */
 function addTask(nom){
   const newTask ={id:Date.now(),nom,completed:false};
   setTasks(prevTasks => [...prevTasks, newTask]);
 }
-  return (
-    <>
+
+return (
+  <TaskContext.Provider value={{
+    tasks,
+    deleteTask,
+    toggleTask,
+    deleteCompletedTasks,
+    addTask
+  }}>
+
     <h2>Gestionnaire de Taches</h2>
-    <TaskForm addTask= {addTask} />
-    <TaskList tasks={tasks} onDelete={deleteTask} onToggle={toggleTask} onDeleteCompleted={deleteCompletedTasks}/>
-    </>
-  );
+    <TaskForm />
+    <TaskList />
+
+  </TaskContext.Provider>
+);
 }
-export default App
+
+export default App;

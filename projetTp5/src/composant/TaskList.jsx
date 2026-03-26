@@ -1,4 +1,9 @@
-const TaskList = ({ tasks, onDelete, onToggle, onDeleteCompleted }) => {
+import { useContext } from "react";
+import { TaskContext } from "../Hooks/TaskContext";
+
+const TaskList = () => {
+
+  const { tasks, deleteTask, toggleTask, deleteCompletedTasks } = useContext(TaskContext);
 
   const remainingTasks = tasks.filter(task => !task.completed).length;
   const totalTasks = tasks.length;
@@ -12,32 +17,40 @@ const TaskList = ({ tasks, onDelete, onToggle, onDeleteCompleted }) => {
               <label htmlFor={task.id}>
                 <input
                   type="checkbox"
-                  name={task.nom}
                   id={task.id}
                   checked={task.completed}
-                  onChange={() => onToggle(task.id)}
+                  onChange={() => toggleTask(task.id)}
                 />
-                <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+
+                <span
+                  style={{
+                    textDecoration: task.completed ? "line-through" : "none"
+                  }}
+                >
                   {task.nom}
                 </span>
+
               </label>
 
-              <button type="button" onClick={() => onDelete(task.id)}>
+              <button onClick={() => deleteTask(task.id)}>
                 Supprimer
               </button>
+
             </li>
           ))}
         </ul>
 
         <div style={{ marginTop: "10px" }}>
-          <span>{remainingTasks} tâches restantes</span> | 
+          <span>{remainingTasks} tâches restantes</span> |
           <span> {totalTasks} tâches au total</span>
-          <button 
+
+          <button
             style={{ marginLeft: "10px", backgroundColor: "red", color: "white" }}
-            onClick={onDeleteCompleted}
+            onClick={deleteCompletedTasks}
           >
             Supprimer toutes les terminées
           </button>
+
         </div>
       </div>
     </>
